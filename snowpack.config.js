@@ -26,5 +26,10 @@ module.exports = {
   },
   alias: {
     /* ... */
+    src: './src',
+    components: './src/components',
+    containers: './src/containers',
+    models: './src/core/models ',
+    assets: './src/assets',
   },
 };

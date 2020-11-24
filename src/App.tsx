@@ -1,39 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import logo from './logo.svg';
+import React from 'react';
+import Canvas from './containers/Canvas/Canvas';
+import { ThemeProvider } from 'styled-components';
+import { theme } from './core/theme';
+import { Provider } from 'react-redux';
+import store from './core/store/store';
 import './App.css';
+interface Props {}
 
-interface AppProps {}
-
-function App({}: AppProps) {
-  // Create the count state.
-  const [count, setCount] = useState(0);
-  // Create the counter (+1 every second).
-  useEffect(() => {
-    const timer = setTimeout(() => setCount(count + 1), 1000);
-    return () => clearTimeout(timer);
-  }, [count, setCount]);
-  // Return the App component.
+function App({}: Props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <p>
-          Page has been open for <code>{count}</code> seconds.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </p>
-      </header>
+    <div id="app">
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <Canvas />
+        </Provider>
+      </ThemeProvider>
     </div>
   );
 }
