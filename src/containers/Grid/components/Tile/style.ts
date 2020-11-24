@@ -3,7 +3,6 @@ import styled from 'styled-components';
 export const Root = styled.div<{ color: string; cursor: string }>`
   width: 100%;
   height: 100%;
-  background-color: ${(props) => props.color};
   position: relative;
 
   :hover {
@@ -13,8 +12,6 @@ export const Root = styled.div<{ color: string; cursor: string }>`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    mix-blend-mode: ${(props) =>
-      props.color === 'transparent' ? 'unset' : 'luminosity'};
     animation: appearTile 0.7s 1;
   }
 
@@ -25,10 +22,20 @@ export const Root = styled.div<{ color: string; cursor: string }>`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    mix-blend-mode: ${(props) =>
-      props.color === 'transparent' ? 'unset' : 'luminosity'};
     object-fit: contain;
     animation: appearEffect 0.7s 1;
+  }
+
+  @media screen and (min-width: 668px) {
+    background-color: ${(props) => props.color};
+    .tile-img {
+      mix-blend-mode: ${(props) =>
+        props.color === 'transparent' ? 'unset' : 'luminosity'};
+    }
+    .effect-img {
+      mix-blend-mode: ${(props) =>
+        props.color === 'transparent' ? 'unset' : 'luminosity'};
+    }
   }
 
   @keyframes appearTile {

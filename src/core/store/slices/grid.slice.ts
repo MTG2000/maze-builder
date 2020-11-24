@@ -14,6 +14,7 @@ import {
 type GridState = {
   grid: (Tile | null)[];
   dimension: number;
+  showBorders: boolean;
 };
 
 const defaultGridDimension = 8;
@@ -23,6 +24,7 @@ let initialState: GridState = {
   grid: new Array(defaultGridDimension * defaultGridDimension).fill({
     type: Tiles.Sea,
   }),
+  showBorders: false,
 };
 
 const gridSlice = createSlice({
@@ -31,12 +33,15 @@ const gridSlice = createSlice({
   reducers: {
     setDimension(state, action: PayloadAction<number>) {
       const newDimension = action.payload;
-      if (newDimension > 5 && newDimension < 12) {
+      if (newDimension >= 5 && newDimension <= 12) {
         state.dimension = newDimension;
         state.grid = new Array(newDimension * newDimension).fill({
           type: Tiles.Sea,
         });
       }
+    },
+    setShowBorders(state, action: PayloadAction<boolean>) {
+      state.showBorders = action.payload;
     },
     setTile(
       state,
@@ -60,6 +65,6 @@ const gridSlice = createSlice({
   },
 });
 
-export const { setTile } = gridSlice.actions;
+export const { setTile, setDimension, setShowBorders } = gridSlice.actions;
 
 export default gridSlice.reducer;

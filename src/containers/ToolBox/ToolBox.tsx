@@ -28,6 +28,21 @@ const Root = styled.div`
     margin: 30px 0;
     cursor: pointer;
   }
+
+  @media screen and (max-width: 668px) {
+    top: unset;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 9px 12px;
+    border-radius: 50px 50px 0 0;
+    display: flex;
+
+    .tool {
+      margin: 0 20px;
+      cursor: pointer;
+    }
+  }
 `;
 
 const tools = [

@@ -17,6 +17,14 @@ const Root = styled.div`
     transform: scale(1.5);
   }
 
+  @media screen and (max-width: 668px) {
+    width: 35px;
+    height: 35px;
+    &.tooltip .tooltiptext {
+      display: none;
+    }
+  }
+
   img {
     width: 100%;
     height: 100%;

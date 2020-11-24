@@ -11,7 +11,11 @@ import { Tools } from 'src/core/models/Tools';
 
 interface Props {}
 
-const Root = styled.div<{ tileWidth: number; width: number }>`
+const Root = styled.div<{
+  tileWidth: number;
+  width: number;
+  showBorders: boolean;
+}>`
   position: relative;
   width: ${(props) => props.width}px;
   min-height: ${(props) => props.width}px;
@@ -26,6 +30,7 @@ const Root = styled.div<{ tileWidth: number; width: number }>`
   .tile {
     width: ${(props) => props.tileWidth}px;
     height: ${(props) => props.tileWidth}px;
+    border: ${(props) => (props.showBorders ? ' 0.5px inset #000' : 'none')};
   }
 `;
 
@@ -34,18 +39,21 @@ function Grid({}: Props) {
   const [tileHoveringOn, setTileHoveringOn] = useState(-1);
   const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
-  const { dimension, grid } = useSelector((state: RootState) => state.grid);
+  const { dimension, grid, showBorders } = useSelector(
+    (state: RootState) => state.grid,
+  );
   const selectedTool = useSelector<RootState, Tools | undefined>(
     (state) => state.toolBox.selectedTool,
   );
 
-  const gridWidth = Math.min(window.innerWidth, window.innerHeight) * 0.9;
+  const gridWidth = Math.min(window.innerWidth, window.innerHeight) * 0.8;
 
   useEffect(() => {
-    ref.current?.addEventListener('mouseleave', () => {
+    const handler = () => {
       setTileHoveringOn(-1);
-    });
-    return () => {};
+    };
+    ref.current?.addEventListener('mouseleave', handler);
+    return () => ref.current?.removeEventListener('mouseleave', handler);
   }, []);
 
   const gridFalttened = grid.flat();
@@ -66,7 +74,12 @@ function Grid({}: Props) {
   };
 
   return (
-    <Root width={gridWidth} tileWidth={gridWidth / dimension} ref={ref}>
+    <Root
+      width={gridWidth}
+      tileWidth={gridWidth / dimension}
+      ref={ref}
+      showBorders={showBorders}
+    >
       {gridFalttened.map((tile, index) => (
         <div className="tile" key={index}>
           <TileComponent

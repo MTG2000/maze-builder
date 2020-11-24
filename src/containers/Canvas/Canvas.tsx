@@ -8,8 +8,8 @@ interface Props {}
 const Root = styled.div`
   width: 100%;
   min-height: 100vh;
-  padding-top: 30px;
-  background: ${(props) => props.theme.primary};
+  padding-top: 120px;
+  background: linear-gradient(0deg, #503185, #43164a); ;
 `;
 
 function Canvas({}: Props) {

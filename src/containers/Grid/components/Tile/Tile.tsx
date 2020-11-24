@@ -28,11 +28,12 @@ function Tile({
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    ref.current?.addEventListener('mouseenter', () => {
+    const handler = () => {
       onHover(index);
-    });
+    };
+    ref.current?.addEventListener('mouseenter', handler);
 
-    return () => {};
+    return () => ref.current?.removeEventListener('mouseenter', handler);
   }, []);
 
   let color = 'transparent';

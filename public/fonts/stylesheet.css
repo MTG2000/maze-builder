@@ -1,0 +1,10 @@
+@font-face {
+    font-family: 'Modak';
+    src: url('Modak.woff2') format('woff2'),
+        url('Modak.woff') format('woff'),
+        url('Modak.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+

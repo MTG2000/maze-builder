@@ -1,8 +1,21 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap'); */
+
 * {
   box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Modak';
+  src: url('/fonts/Modak.woff2') format('woff2'),
+    url('/fonts/Modak.woff') format('woff'),
+    url('/fonts/Modak.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
 }
 
 body {
   padding: 0;
   margin: 0;
+  /* font-family: , cursive; */
 }
