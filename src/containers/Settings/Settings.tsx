@@ -1,45 +1,25 @@
 import React from 'react';
-import styled from 'styled-components';
 import SettingsDialog, { SettingsChanges } from './components/SettingsDialog';
 import { useDispatch } from 'react-redux';
 import { isNullOrUndefined } from 'util';
 import { setShowBorders, setDimension } from 'src/core/store/slices/grid.slice';
 import { Fab } from '@material-ui/core';
 import gearsImg from 'src/assets/gear.svg';
+import { Root } from './style';
 
 interface Props {}
-const Root = styled.header`
-  .fab {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    padding: 10px;
-
-    :hover {
-      img {
-        transform: rotate(120deg);
-      }
-    }
-
-    img {
-      width: 100%;
-      height: 100%;
-      transition: transform 0.3s ease-in-out;
-    }
-  }
-`;
 
 function Settings({}: Props) {
-  const [open, setOpen] = React.useState(false);
+  const [dialogOpen, setDialogOpen] = React.useState(false);
 
   const dispatch = useDispatch();
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setDialogOpen(true);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setDialogOpen(false);
   };
 
   const handleChange = (value: SettingsChanges) => {
@@ -52,12 +32,12 @@ function Settings({}: Props) {
   return (
     <Root>
       <SettingsDialog
-        open={open}
+        open={dialogOpen}
         handleClose={handleClose}
         onChange={handleChange}
       />
       <Fab color="secondary" className="fab" onClick={handleClickOpen}>
-        <img src={gearsImg} alt="" />
+        <img src={gearsImg} alt="settings" />
       </Fab>
     </Root>
   );

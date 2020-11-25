@@ -12,8 +12,10 @@ export const toolToTile = (currentTool: Tools) => {
 
 export const toolToTileEffect = (currentTool: Tools) => {
   switch (currentTool) {
-    case Tools.Sharks:
-      return TileEffects.Sharks;
+    case Tools.Portal:
+      return TileEffects.Portal;
+    case Tools.Flag:
+      return TileEffects.Flag;
     case Tools.Hole:
       return TileEffects.Hole;
   }
@@ -25,6 +27,7 @@ export const isEffectAppliable = (
 ): boolean => {
   if (!tile) return false;
   if (tile.type === Tiles.Ground && effect === TileEffects.Hole) return true;
-  if (tile.type === Tiles.Sea && effect === TileEffects.Sharks) return true;
+  if (tile.type === Tiles.Ground && effect === TileEffects.Portal) return true;
+  if (tile.type === Tiles.Ground && effect === TileEffects.Flag) return true;
   return false;
 };

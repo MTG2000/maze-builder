@@ -1,7 +1,8 @@
 export enum Tools {
   GroundTile,
   SeaTile,
-  Sharks,
+  Portal,
   Hole,
+  Flag,
   Eraser,
 }

@@ -4,8 +4,9 @@ export enum Tiles {
 }
 
 export enum TileEffects {
-  Sharks = 1,
+  Portal = 1,
   Hole,
+  Flag,
 }
 
 export interface Tile {

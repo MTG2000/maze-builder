@@ -86,14 +86,6 @@ function SettingsDialog({ open, handleClose, onChange }: Props) {
             label="Toggle Grid Borders"
           />
         </DialogContent>
-        {/* <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={handleClose} variant="contained" color="primary">
-            Save
-          </Button>
-        </DialogActions> */}
       </div>
     </Root>
   );

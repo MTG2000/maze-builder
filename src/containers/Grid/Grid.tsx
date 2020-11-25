@@ -8,43 +8,22 @@ import { HoverColors, getHoverColor } from './service';
 import { setTile } from 'src/core/store/slices/grid.slice';
 import { isNullOrUndefined } from 'util';
 import { Tools } from 'src/core/models/Tools';
+import { Root } from './style';
 
 interface Props {}
 
-const Root = styled.div<{
-  tileWidth: number;
-  width: number;
-  showBorders: boolean;
-}>`
-  position: relative;
-  width: ${(props) => props.width}px;
-  min-height: ${(props) => props.width}px;
-  margin: auto;
-  background: #fff4e4de;
-  display: flex;
-  flex-wrap: wrap;
-  border-radius: 10px;
-  overflow: hidden;
-  user-select: none;
-
-  .tile {
-    width: ${(props) => props.tileWidth}px;
-    height: ${(props) => props.tileWidth}px;
-    border: ${(props) => (props.showBorders ? ' 0.5px inset #000' : 'none')};
-  }
-`;
-
 function Grid({}: Props) {
-  // What tile are we currently hovering on
   const [tileHoveringOn, setTileHoveringOn] = useState(-1);
-  const ref = useRef<HTMLDivElement | null>(null);
   const dispatch = useDispatch();
-  const { dimension, grid, showBorders } = useSelector(
+  const { dimension, grid, showBorders, path } = useSelector(
     (state: RootState) => state.grid,
   );
   const selectedTool = useSelector<RootState, Tools | undefined>(
     (state) => state.toolBox.selectedTool,
   );
+
+  const ref = useRef<HTMLDivElement | null>(null);
+  const selectedToolRef = useRef(selectedTool);
 
   const gridWidth = Math.min(window.innerWidth, window.innerHeight) * 0.8;
 
@@ -55,6 +34,10 @@ function Grid({}: Props) {
     ref.current?.addEventListener('mouseleave', handler);
     return () => ref.current?.removeEventListener('mouseleave', handler);
   }, []);
+
+  useEffect(() => {
+    selectedToolRef.current = selectedTool;
+  }, [selectedTool]);
 
   const gridFalttened = grid.flat();
   let hoverColor: HoverColors | undefined;
@@ -69,8 +52,8 @@ function Grid({}: Props) {
   };
 
   const handleClick = (index: number) => {
-    if (!isNullOrUndefined(selectedTool))
-      dispatch(setTile({ index, selectedTool }));
+    if (!isNullOrUndefined(selectedToolRef.current))
+      dispatch(setTile({ index, selectedTool: selectedToolRef.current }));
   };
 
   return (
@@ -84,6 +67,7 @@ function Grid({}: Props) {
         <div className="tile" key={index}>
           <TileComponent
             isHovering={index === tileHoveringOn}
+            isPath={path[index]}
             hoverColor={hoverColor}
             tile={tile}
             index={index}

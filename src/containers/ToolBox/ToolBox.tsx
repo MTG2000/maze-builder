@@ -1,58 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSelectedTool } from 'src/core/store/slices/toolbox.slice';
-import groundImg from 'src/assets/tile-ground.png';
-import waterImg from 'src/assets/tile-water.png';
-import skarkImg from 'src/assets/shark.png';
-
-import holeImg from 'src/assets/hole.png';
-import eraserImg from 'src/assets/eraser.png';
-
 import Tool from './components/Tool/Tool';
 import { RootState } from 'src/core/store/rootReducer';
 import { Tools } from 'src/core/models/Tools';
+import { Root } from './style';
+
+import groundImg from 'src/assets/tile-ground.png';
+import waterImg from 'src/assets/tile-water.png';
+import portalImg from 'src/assets/portal.png';
+import flagImg from 'src/assets/flag.png';
+import holeImg from 'src/assets/hole.png';
+import eraserImg from 'src/assets/eraser.png';
 
 interface Props {}
 
-const Root = styled.div`
-  position: fixed;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 0;
-  background-color: ${(props) => props.theme.secondary};
-  padding: 20px 30px;
-  border-radius: 0 50px 50px 0;
-
-  .tool {
-    margin: 30px 0;
-    cursor: pointer;
-  }
-
-  @media screen and (max-width: 668px) {
-    top: unset;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 9px 12px;
-    border-radius: 50px 50px 0 0;
-    display: flex;
-
-    .tool {
-      margin: 0 20px;
-      cursor: pointer;
-    }
-  }
-`;
-
 const tools = [
   { title: 'Ground Piece', tool: Tools.GroundTile, img: groundImg },
-
   { title: 'Water Piece', tool: Tools.SeaTile, img: waterImg },
-
-  { title: 'Sharks', tool: Tools.Sharks, img: skarkImg },
-
+  { title: 'Portal', tool: Tools.Portal, img: portalImg },
   { title: 'Hole', tool: Tools.Hole, img: holeImg },
+  { title: 'Start/End', tool: Tools.Flag, img: flagImg },
   { title: 'Eraser', tool: Tools.Eraser, img: eraserImg },
 ];
 

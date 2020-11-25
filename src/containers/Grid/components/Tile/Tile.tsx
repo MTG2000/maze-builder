@@ -3,7 +3,9 @@ import { Tile, Tiles, TileEffects } from 'src/core/models/Tile';
 import { HoverColors } from '../../service';
 import groundImg from 'src/assets/ground-tile.png';
 import waterImg from 'src/assets/water-tile.png';
-import skarkImg from 'src/assets/shark.png';
+import portalImg from 'src/assets/portal.png';
+import flagImg from 'src/assets/flag.png';
+
 import holeImg from 'src/assets/hole.png';
 import { isNullOrUndefined } from 'util';
 import { Root } from './style';
@@ -12,6 +14,7 @@ interface Props {
   index: number;
   tile: Tile | null;
   isHovering?: boolean;
+  isPath?: boolean;
   hoverColor?: HoverColors;
   onHover: (index: number) => void;
   onClick: (index: number) => void;
@@ -21,6 +24,7 @@ function Tile({
   index,
   tile,
   isHovering,
+  isPath,
   hoverColor,
   onHover,
   onClick,
@@ -28,12 +32,19 @@ function Tile({
   const ref = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    const handler = () => {
+    const hoverHandler = () => {
       onHover(index);
     };
-    ref.current?.addEventListener('mouseenter', handler);
+    const clickHandler = () => {
+      onClick(index);
+    };
+    ref.current?.addEventListener('mouseenter', hoverHandler);
+    ref.current?.addEventListener('mousedown', clickHandler);
 
-    return () => ref.current?.removeEventListener('mouseenter', handler);
+    return () => {
+      ref.current?.removeEventListener('mouseenter', hoverHandler);
+      ref.current?.removeEventListener('mousedown', clickHandler);
+    };
   }, []);
 
   let color = 'transparent';
@@ -55,19 +66,16 @@ function Tile({
   }
 
   if (!isNullOrUndefined(tile?.effect)) {
-    if (tile?.effect === TileEffects.Sharks) effectImg = skarkImg;
+    if (tile?.effect === TileEffects.Portal) effectImg = portalImg;
     else if (tile?.effect === TileEffects.Hole) effectImg = holeImg;
+    else if (tile?.effect === TileEffects.Flag) effectImg = flagImg;
   }
 
   return (
-    <Root
-      color={color}
-      cursor={cursor}
-      ref={ref}
-      onClick={() => onClick(index)}
-    >
+    <Root color={color} cursor={cursor} ref={ref}>
       {tile && <img className="tile-img" src={tileImg} alt="" />}
       {tile?.effect && <img className="effect-img" src={effectImg} alt="" />}
+      {isPath && <span className="path"></span>}
     </Root>
   );
 }
