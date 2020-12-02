@@ -71,8 +71,11 @@ const gridSlice = createSlice({
       const newEffect = toolToTileEffect(selectedTool);
 
       if (selectedTool === Tools.Eraser) {
-        if (tile?.effect) state.grid[index] = { ...tile, effect: null };
-        else state.grid[index] = defaultTile;
+        if (tile?.effect) {
+          if (tile.effect === TileEffects.Flag)
+            state.flagsIndecies[state.flagsIndecies[0] === index ? 0 : 1] = -1;
+          state.grid[index] = { ...tile, effect: null };
+        } else state.grid[index] = defaultTile;
       } else if (newTile) {
         state.grid[index] = { type: newTile, effect: null };
       } else if (newEffect && isEffectAppliable(tile, newEffect)) {

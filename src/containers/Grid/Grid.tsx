@@ -5,19 +5,24 @@ import { RootState } from 'src/core/store/rootReducer';
 import { Tile } from 'src/core/models/Tile';
 import TileComponent from './components/Tile/Tile';
 import { HoverColors, getHoverColor } from './service';
-import { setTile } from 'src/core/store/slices/grid.slice';
+import { setTile, setPath } from 'src/core/store/slices/grid.slice';
 import { isNullOrUndefined } from 'util';
 import { Tools } from 'src/core/models/Tools';
 import { Root } from './style';
+import StartButton from './components/StartButton/StartButton';
+import { findPath } from 'src/core/services/pathFinding';
 
 interface Props {}
 
 function Grid({}: Props) {
   const [tileHoveringOn, setTileHoveringOn] = useState(-1);
   const dispatch = useDispatch();
-  const { dimension, grid, showBorders, path } = useSelector(
+  const { dimension, grid, showBorders, path, flagsIndecies } = useSelector(
     (state: RootState) => state.grid,
   );
+
+  const canStartSearch = flagsIndecies[0] !== -1 && flagsIndecies[1] !== -1;
+
   const selectedTool = useSelector<RootState, Tools | undefined>(
     (state) => state.toolBox.selectedTool,
   );
@@ -47,13 +52,23 @@ function Grid({}: Props) {
     hoverColor = getHoverColor(gridTile, selectedTool);
   }
 
-  const handleHover = (index: number) => {
+  const handleTileHover = (index: number) => {
     setTileHoveringOn(index);
   };
 
-  const handleClick = (index: number) => {
+  const handleTileClick = (index: number) => {
     if (!isNullOrUndefined(selectedToolRef.current))
       dispatch(setTile({ index, selectedTool: selectedToolRef.current }));
+  };
+
+  const handleSearchStart = async () => {
+    const result = await findPath(
+      grid,
+      flagsIndecies[0],
+      flagsIndecies[1],
+      dimension,
+    );
+    if (result) dispatch(setPath(result.path));
   };
 
   return (
@@ -63,6 +78,7 @@ function Grid({}: Props) {
       ref={ref}
       showBorders={showBorders}
     >
+      {canStartSearch && <StartButton onClick={handleSearchStart} />}
       {gridFalttened.map((tile, index) => (
         <div className="tile" key={index}>
           <TileComponent
@@ -71,8 +87,8 @@ function Grid({}: Props) {
             hoverColor={hoverColor}
             tile={tile}
             index={index}
-            onHover={handleHover}
-            onClick={handleClick}
+            onHover={handleTileHover}
+            onClick={handleTileClick}
           />
         </div>
       ))}
