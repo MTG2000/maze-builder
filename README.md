@@ -1,25 +1,15 @@
-# New Project
+# Maze Builder
 
-> ✨ Bootstrapped with Create Snowpack App (CSA).
+A Web application that allows you to build a Maze using Elements like Ground, Water, Holes, and Portals, then find the shortest path from the start flag to the end flag.
 
-## Available Scripts
+The Application is Built using React + TypeScript, and uses Redux for state management, uses BFS for the pathfinding algorithm.
 
-### npm start
+## Running the App Localy
 
-Runs the app in the development mode.
-Open http://localhost:8080 to view it in the browser.
+after cloning the project, you have to first run
+`npm install`
+to install the project dependencies
 
-The page will reload if you make edits.
-You will also see any lint errors in the console.
-
-### npm run build
-
-Builds a static copy of your site to the `build/` folder.
-Your app is ready to be deployed!
-
-**For the best production performance:** Add a build bundler plugin like "@snowpack/plugin-webpack" to your `snowpack.config.js` config file.
-
-### npm test
-
-Launches the application test runner.
-Run with the `--watch` flag (`npm test -- --watch`) to run in interactive watch mode.
+then
+`npm start`
+to start the app on your local machine ( on port 8000 )

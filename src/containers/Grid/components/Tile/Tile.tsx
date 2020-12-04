@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Tile, Tiles, TileEffects } from 'src/core/models/Tile';
+import { Tile as ITile, Tiles, TileEffects } from 'src/core/models/Tile';
 import { HoverColors } from '../../service';
 import groundImg from 'src/assets/ground-tile.png';
 import waterImg from 'src/assets/water-tile.png';
@@ -12,7 +12,7 @@ import { Root } from './style';
 
 interface Props {
   index: number;
-  tile: Tile | null;
+  tile: ITile | null;
   isHovering?: boolean;
   isPath?: boolean;
   hoverColor?: HoverColors;
@@ -72,7 +72,7 @@ function Tile({
   }
 
   return (
-    <Root color={color} cursor={cursor} ref={ref}>
+    <Root color={color} cursor={cursor} ref={ref} data-testid="tile">
       {tile && <img className="tile-img" src={tileImg} alt="" />}
       {tile?.effect && <img className="effect-img" src={effectImg} alt="" />}
       {isPath && <span className="path"></span>}
