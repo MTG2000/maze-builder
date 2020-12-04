@@ -1,0 +1,15 @@
+{
+  "imports": {
+    "@material-ui/core": "./@material-ui/core.js",
+    "@material-ui/core/Dialog": "./@material-ui/core/Dialog.js",
+    "@material-ui/core/DialogContent": "./@material-ui/core/DialogContent.js",
+    "@material-ui/core/DialogTitle": "./@material-ui/core/DialogTitle.js",
+    "@material-ui/core/styles": "./@material-ui/core/styles.js",
+    "@reduxjs/toolkit": "./@reduxjs/toolkit.js",
+    "react": "./react.js",
+    "react-dom": "./react-dom.js",
+    "react-redux": "./react-redux.js",
+    "styled-components": "./styled-components.js",
+    "util": "./util.js"
+  }
+}
