@@ -1,0 +1,1 @@
+export default "/_dist_/assets/tile-water.png";
