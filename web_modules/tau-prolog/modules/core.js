@@ -1,6 +1,6 @@
-import { c as createCommonjsModule, a as commonjsGlobal } from './common/_commonjsHelpers-eb5a497e.js';
-import { g as global } from './common/global-5c50bad9.js';
-import { p as process } from './common/process-2545f00a.js';
+import { c as createCommonjsModule } from '../../common/_commonjsHelpers-eb5a497e.js';
+import { g as global } from '../../common/global-5c50bad9.js';
+import { p as process } from '../../common/process-2545f00a.js';
 
 var lookup = [];
 var revLookup = [];
@@ -5282,16 +5282,16 @@ var core = createCommonjsModule(function (module) {
 		this.limit = limit;
 		this.streams = {
 			"user_input": new Stream(
-				nodejs_flag ? nodejs_user_input : tau_user_input,
+				 tau_user_input,
 				"read", "user_input", "text", false, "reset" ),
 			"user_output": new Stream(
-				nodejs_flag ? nodejs_user_output : tau_user_output,
+				 tau_user_output,
 				"append", "user_output", "text", false, "reset" ),
 			"user_error": new Stream(
-				nodejs_flag ? nodejs_user_error : tau_user_error,
+				 tau_user_error,
 				"append", "user_error", "text", false, "reset" ),
 		};
-		this.file_system = nodejs_flag ? nodejs_file_system : tau_file_system;
+		this.file_system =  tau_file_system;
 		this.standard_input = this.streams["user_input"];
 		this.standard_output = this.streams["user_output"];
 		this.standard_error = this.streams["user_error"];
@@ -5316,6 +5316,8 @@ var core = createCommonjsModule(function (module) {
 			nodejs: pl.flag.nodejs.value,
 			argv: pl.flag.argv.value
 		};
+		console.log(this.flag.nodejs);
+		
 		this.__loaded_modules = [];
 		this.__char_conversion = {};
 		this.__operators = {
@@ -7103,14 +7105,7 @@ var core = createCommonjsModule(function (module) {
 		return singleton;
 	};
 
-
-
-	// NODEJS
-
-	var nodejs_flag = typeof process !== 'undefined' && !process.browser;
-
-	var nodejs_arguments = nodejs_flag ?
-		arrayToList( map(process.argv.slice(1), function(arg) { return new Term( arg ); })) :
+	var nodejs_arguments = 
 		new Term("[]", []);
 	
 	
@@ -7120,7 +7115,7 @@ var core = createCommonjsModule(function (module) {
 	var pl = {
 		
 		// Environment
-		__env: nodejs_flag ? commonjsGlobal : window,
+		__env:  window,
 		
 		// Modules
 		modules: {},
@@ -8258,7 +8253,7 @@ var core = createCommonjsModule(function (module) {
 			// NodeJS
 			nodejs: {
 				allowed: [new Term( "true" ), new Term( "false" )],
-				value: new Term( nodejs_flag ? "true" : "false" ),
+				value: new Term(  "false" ),
 				changeable: false
 			},
 
@@ -12529,4 +12524,4 @@ var core = createCommonjsModule(function (module) {
 })();
 });
 
-export { core as __moduleExports };
+export default core;

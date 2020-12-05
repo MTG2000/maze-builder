@@ -9,6 +9,7 @@ export function bfs(graph2, startVertex, endVertex) {
   let pathFound = false;
   while (!vertexQueue.empty()) {
     const currentVertex = vertexQueue.dequeue();
+    console.log(currentVertex);
     if (currentVertex === endVertex) {
       pathFound = true;
       break;

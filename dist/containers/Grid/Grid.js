@@ -9,6 +9,7 @@ import StartButton2 from "./components/StartButton/StartButton.js";
 import {findPath} from "../../core/services/pathFinding/index.js";
 function Grid({}) {
   const [tileHoveringOn, setTileHoveringOn] = useState(-1);
+  const [searching, setSearching] = useState(false);
   const dispatch = useDispatch();
   const {dimension, grid: grid2, showBorders, path, flagsIndecies} = useSelector((state) => state.grid);
   const canStartSearch = flagsIndecies[0] !== -1 && flagsIndecies[1] !== -1;
@@ -40,9 +41,11 @@ function Grid({}) {
       dispatch(setTile({index, selectedTool: selectedToolRef.current}));
   };
   const handleSearchStart = async () => {
+    setSearching(true);
     const result = await findPath(grid2, flagsIndecies[0], flagsIndecies[1], dimension);
     if (result)
       dispatch(setPath(result.path));
+    setSearching(false);
   };
   return /* @__PURE__ */ React.createElement(Root, {
     width: gridWidth,
@@ -50,6 +53,7 @@ function Grid({}) {
     ref,
     showBorders
   }, canStartSearch && /* @__PURE__ */ React.createElement(StartButton2, {
+    loading: searching,
     onClick: handleSearchStart
   }), gridFalttened.map((tile, index) => /* @__PURE__ */ React.createElement("div", {
     className: "tile",

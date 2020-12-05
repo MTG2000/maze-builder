@@ -33,7 +33,7 @@ class Graph {
         neighobrs.push(v - 1);
       if (v % length !== length - 1 && array[v + 1])
         neighobrs.push(v + 1);
-      if (v > length && array[v - length])
+      if (v >= length && array[v - length])
         neighobrs.push(v - length);
       if (v + length < length * length && array[v + length])
         neighobrs.push(v + length);

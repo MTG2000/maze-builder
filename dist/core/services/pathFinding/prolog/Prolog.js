@@ -1,7 +1,10 @@
 // const pl = require('tau-prolog');
 // require('tau-prolog/modules/lists')(pl);
 
-import * as pl from '../../../../../web_modules/tau-prolog.js';
+import '../../../../../web_modules/tau-prolog/modules/core.js';
+const pl = window.pl;
+console.log(pl);
+
 import loader from '../../../../../web_modules/tau-prolog/modules/lists.js';
 loader(pl);
 

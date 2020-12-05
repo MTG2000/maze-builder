@@ -10,7 +10,7 @@
     "react-dom": "./react-dom.js",
     "react-redux": "./react-redux.js",
     "styled-components": "./styled-components.js",
-    "tau-prolog": "./tau-prolog.js",
+    "tau-prolog/modules/core": "./tau-prolog/modules/core.js",
     "tau-prolog/modules/lists": "./tau-prolog/modules/lists.js",
     "util": "./util.js"
   }

@@ -29,8 +29,9 @@ const Root = styled(Button)`
     padding: 17px 30px !important;
   }
 `;
-function StartButton({onClick}) {
+function StartButton({onClick, loading}) {
   return /* @__PURE__ */ React.createElement(Root, {
+    disabled: loading,
     variant: "contained",
     color: "secondary",
     onClick
