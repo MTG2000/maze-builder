@@ -4,6 +4,7 @@ import { Button } from '@material-ui/core';
 
 interface Props {
   onClick: () => void;
+  loading: boolean;
 }
 
 const Root = styled(Button)`
@@ -35,9 +36,14 @@ const Root = styled(Button)`
   }
 `;
 
-function StartButton({ onClick }: Props) {
+function StartButton({ onClick, loading }: Props) {
   return (
-    <Root variant="contained" color="secondary" onClick={onClick}>
+    <Root
+      disabled={loading}
+      variant="contained"
+      color="secondary"
+      onClick={onClick}
+    >
       Start Searching 🔍
     </Root>
   );

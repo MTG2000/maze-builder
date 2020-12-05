@@ -1,13 +1,13 @@
 {
-  "homepage": "http://MTG2000.github.io/maze-builder",
+  "homepage": "https://mtg2000.github.io/maze-builder",
   "scripts": {
-    "start": "snowpack dev",
-    "build": "snowpack build",
+    "start": "snowpack dev  --polyfill-node",
+    "build": "snowpack build  --polyfill-node",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build -t true"
   },
   "dependencies": {
     "@material-ui/core": "^4.11.1",
@@ -16,6 +16,7 @@
     "react-dom": "^17.0.0",
     "react-redux": "^7.2.2",
     "styled-components": "^5.2.1",
+    "tau-prolog": "^0.3.0",
     "util": "^0.12.3"
   },
   "devDependencies": {
@@ -23,6 +24,7 @@
     "@snowpack/plugin-dotenv": "^2.0.4",
     "@snowpack/plugin-react-refresh": "^2.3.7",
     "@snowpack/plugin-typescript": "^1.1.0",
+    "@snowpack/plugin-webpack": "^2.1.2",
     "@snowpack/web-test-runner-plugin": "^0.1.4",
     "@testing-library/jest-dom": "^5.11.6",
     "@testing-library/react": "^11.0.0",

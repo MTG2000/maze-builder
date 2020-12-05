@@ -2,12 +2,18 @@
 module.exports = {
   mount: {
     public: '/',
-    src: '/_dist_',
+    src: '/dist',
   },
   plugins: [
     '@snowpack/plugin-react-refresh',
     '@snowpack/plugin-dotenv',
     '@snowpack/plugin-typescript',
+    [
+      '@snowpack/plugin-webpack',
+      {
+        /* see "Plugin Options" below */
+      },
+    ],
   ],
   install: [
     /* ... */
@@ -20,6 +26,7 @@ module.exports = {
   },
   buildOptions: {
     /* ... */
+    baseUrl: '/maze-builder/',
   },
   proxy: {
     /* ... */

@@ -16,6 +16,7 @@ interface Props {}
 
 function Grid({}: Props) {
   const [tileHoveringOn, setTileHoveringOn] = useState(-1);
+  const [searching, setSearching] = useState(false);
   const dispatch = useDispatch();
   const { dimension, grid, showBorders, path, flagsIndecies } = useSelector(
     (state: RootState) => state.grid,
@@ -62,6 +63,7 @@ function Grid({}: Props) {
   };
 
   const handleSearchStart = async () => {
+    setSearching(true);
     const result = await findPath(
       grid,
       flagsIndecies[0],
@@ -69,6 +71,7 @@ function Grid({}: Props) {
       dimension,
     );
     if (result) dispatch(setPath(result.path));
+    setSearching(false);
   };
 
   return (
@@ -78,7 +81,9 @@ function Grid({}: Props) {
       ref={ref}
       showBorders={showBorders}
     >
-      {canStartSearch && <StartButton onClick={handleSearchStart} />}
+      {canStartSearch && (
+        <StartButton loading={searching} onClick={handleSearchStart} />
+      )}
       {gridFalttened.map((tile, index) => (
         <div className="tile" key={index}>
           <TileComponent
