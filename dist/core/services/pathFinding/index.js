@@ -6,7 +6,7 @@ import Graph from "./BFS/graph.js";
 import {bfs as bfs2} from "./BFS/bfs.js";
 export async function findPath(grid, start, end, dimension, accuracy = 1) {
   const girdArray = parseGridTo2DArray(grid);
-  if (import.meta.env.MODE === "production ") {
+  if (import.meta.env.MODE === "production") {
     return useBFS(girdArray, start, end, dimension);
   }
   return await useProlog(girdArray, start, end, dimension, accuracy);

@@ -35,6 +35,6 @@ function StartButton({onClick, loading}) {
     variant: "contained",
     color: "secondary",
     onClick
-  }, "Start Searching \u{1F50D}");
+  }, "Start \u{1F50D}");
 }
 export default StartButton;

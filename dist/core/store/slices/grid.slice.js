@@ -6,13 +6,19 @@ import {
   toolToTileEffect,
   isEffectAppliable
 } from "../../services/ToolBox.js";
+import {getInitialGrid, getInitialFlags} from "../helpers/initialGrid.js";
 const defaultGridDimension = 8;
-const defaultTile = {type: Tiles.Sea, effect: null};
+const seaTile = {type: Tiles.Sea, effect: null};
+const groundTile = {type: Tiles.Ground, effect: null};
 let initialState = {
   dimension: defaultGridDimension,
-  grid: new Array(defaultGridDimension * defaultGridDimension).fill(defaultTile),
+  grid: getInitialGrid({
+    groundTile,
+    seaTile,
+    dimension: defaultGridDimension
+  }),
   showBorders: false,
-  flagsIndecies: [-1, -1],
+  flagsIndecies: getInitialFlags(),
   path: {}
 };
 const gridSlice = createSlice({
@@ -43,7 +49,7 @@ const gridSlice = createSlice({
             state.flagsIndecies[state.flagsIndecies[0] === index ? 0 : 1] = -1;
           state.grid[index] = {...tile, effect: null};
         } else
-          state.grid[index] = defaultTile;
+          state.grid[index] = seaTile;
       } else if (newTile) {
         state.grid[index] = {type: newTile, effect: null};
       } else if (newEffect && isEffectAppliable(tile, newEffect)) {
