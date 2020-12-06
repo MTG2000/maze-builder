@@ -58,11 +58,12 @@ async function useProlog(
   knowledgeBase = knowledgeBase.concat(`
         :- use_module(library(lists)).
  
-        path(X,Y):- portal(X),portal(Y), X \\= Y.
-        path(X,Y):- vertex(X),vertex(Y), X \\= Y,Y is X+1.
-        path(X,Y):- vertex(X),vertex(Y), X \\= Y,Y is X-1.
-        path(X,Y):- vertex(X),vertex(Y), X \\= Y,Y is X-${dimension}.
-        path(X,Y):- vertex(X),vertex(Y), X \\= Y,Y is X+${dimension}.
+        validTile(X,Y):- vertex(Y), X \\= Y.
+        path(X,Y):- portal(X), portal(Y), validTile(X,Y).
+        path(X,Y):- validTile(X,Y),X is Y+1, \\+(0 is mod(X,${dimension})).
+        path(X,Y):- validTile(X,Y),X is Y-1, \\+(0 is mod(Y,${dimension})).
+        path(X,Y):- validTile(X,Y),X is Y-${dimension}.
+        path(X,Y):- validTile(X,Y),X is Y+${dimension}.
 
         find(S,E,Visited,Result):-path(S,E),reverse(Visited,Temp),append(Temp,[S,E],Result).
         find(S,E,Visited,R) :-
@@ -85,6 +86,12 @@ async function useProlog(
     });
 
     const data = await res.json();
+    console.log(data);
+
+    if (data.error) {
+      alert(data.error.msg);
+      return { path: [] };
+    }
     return { path: data.path || [] };
   } catch (error) {
     alert('An Error Occured, Please Try Again');
