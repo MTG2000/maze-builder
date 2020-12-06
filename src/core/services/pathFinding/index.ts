@@ -13,7 +13,7 @@ export async function findPath(
 ) {
   const girdArray = parseGridTo2DArray(grid);
 
-  if (import.meta.env.MODE === 'production ') {
+  if (import.meta.env.MODE === 'production') {
     return useBFS(girdArray, start, end, dimension);
   }
   return await useProlog(girdArray, start, end, dimension, accuracy);

@@ -9,6 +9,8 @@ import {
   toolToTileEffect,
   isEffectAppliable,
 } from 'src/core/services/ToolBox';
+import { isNullOrUndefined } from 'util';
+import { getInitialGrid, getInitialFlags } from '../helpers/initialGrid';
 // import { Position } from 'models/Position';
 
 type GridState = {
@@ -20,15 +22,18 @@ type GridState = {
 };
 
 const defaultGridDimension = 8;
-const defaultTile: Tile = { type: Tiles.Sea, effect: null };
+const seaTile: Tile = { type: Tiles.Sea, effect: null };
+const groundTile: Tile = { type: Tiles.Ground, effect: null };
 
 let initialState: GridState = {
   dimension: defaultGridDimension,
-  grid: new Array(defaultGridDimension * defaultGridDimension).fill(
-    defaultTile,
-  ),
+  grid: getInitialGrid({
+    groundTile,
+    seaTile,
+    dimension: defaultGridDimension,
+  }),
   showBorders: false,
-  flagsIndecies: [-1, -1],
+  flagsIndecies: getInitialFlags(),
   path: {},
 };
 
@@ -75,7 +80,7 @@ const gridSlice = createSlice({
           if (tile.effect === TileEffects.Flag)
             state.flagsIndecies[state.flagsIndecies[0] === index ? 0 : 1] = -1;
           state.grid[index] = { ...tile, effect: null };
-        } else state.grid[index] = defaultTile;
+        } else state.grid[index] = seaTile;
       } else if (newTile) {
         state.grid[index] = { type: newTile, effect: null };
       } else if (newEffect && isEffectAppliable(tile, newEffect)) {

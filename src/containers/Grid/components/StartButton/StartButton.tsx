@@ -44,7 +44,7 @@ function StartButton({ onClick, loading }: Props) {
       color="secondary"
       onClick={onClick}
     >
-      Start Searching 🔍
+      Start 🔍
     </Root>
   );
 }
