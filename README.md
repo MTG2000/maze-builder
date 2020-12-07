@@ -5,7 +5,12 @@ then when you are done, it will find the shortest path between a start & end poi
 
 ### Technologies
 
-The Application is Built using: - React Js: A modern Front-End Framework - TypeScript: A strict syntactical superset of JavaScript. - Redux: One of the mostly used state-management tools - Material-UI: A componets library built for ReactJs that uses Material-Design
+The Application is Built using:
+
+- React Js: A modern Front-End Framework
+- TypeScript: A strict syntactical superset of JavaScript.
+- Redux: One of the mostly used state-management tools
+- Material-UI: A componets library built for ReactJs that uses Material-Design
 
 The process of finding the shortest path between 2 points is implemented using BFS algorithm, but if you check the code, you will see that there is also a Prolog implementation for finding the shortest path, but you can ignore it ( it is for a university project 😁 ).
 
