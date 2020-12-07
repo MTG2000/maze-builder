@@ -1,6 +1,6 @@
 # Maze Builder
 
-A Web Application that allows you to build a maze with extra special effects ( Holes, Portals ) and includes options to control the grid properties ( show borders, dimensions ).
+A Web Application that allows you to build a maze with extra special effects ( Holes, Portals, Start/End flags ) and includes options to control the grid properties ( show borders, dimensions ).
 then when you are done, it will find the shortest path between a start & end point of your choosing.
 
 ### Technologies
