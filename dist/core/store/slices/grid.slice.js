@@ -26,6 +26,8 @@ const gridSlice = createSlice({
   initialState,
   reducers: {
     setDimension(state, action) {
+      state.path = {};
+      state.flagsIndecies = [-1, -1];
       const newDimension = action.payload;
       if (newDimension >= 5 && newDimension <= 12) {
         state.dimension = newDimension;

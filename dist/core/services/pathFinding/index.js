@@ -6,46 +6,51 @@ import Graph from "./BFS/graph.js";
 import {bfs as bfs2} from "./BFS/bfs.js";
 export async function findPath(grid, start, end, dimension, accuracy = 1) {
   const girdArray = parseGridTo2DArray(grid);
-  if (import.meta.env.MODE === "production") {
-    return useBFS(girdArray, start, end, dimension);
-  }
-  return await useProlog(girdArray, start, end, dimension, accuracy);
-}
-function useBFS(girdArray, start, end, dimension) {
   const graph2 = new Graph(dimension, dimension);
   graph2.buildFrom2DArray(girdArray, dimension);
+  if (import.meta.env.MODE === "production") {
+    return useBFS(graph2, start, end);
+  }
+  return await useProlog(graph2, start, end, dimension, accuracy);
+}
+function useBFS(graph2, start, end) {
   return bfs2(graph2, start, end);
 }
-async function useProlog(gridArray, start, end, dimension, accuracy) {
-  let portals = [];
+async function useProlog(graph2, start, end, dimension, accuracy) {
   let knowledgeBase = "";
-  for (let i = 0; i < gridArray.length; i++) {
-    if (gridArray[i])
-      knowledgeBase = knowledgeBase.concat(`vertex(${i}).
+  for (let i = 0; i < graph2.edgesList.length; i++) {
+    const [v1, v2] = graph2.edgesList[i];
+    knowledgeBase = knowledgeBase.concat(`path(${v1},${v2}).
 `);
-    if (gridArray[i] === 8)
-      portals.push(i);
   }
-  knowledgeBase = knowledgeBase.concat("portal(-1).\n");
-  for (const p of portals) {
-    knowledgeBase = knowledgeBase.concat(`portal(${p}).
+  for (let i = 0; i < graph2.portals.length; i++) {
+    knowledgeBase = knowledgeBase.concat(`portal(${graph2.portals[i]}).
 `);
   }
   knowledgeBase = knowledgeBase.concat(`
         :- use_module(library(lists)).
  
-        validTile(X,Y):- vertex(Y), X \\= Y.
-        path(X,Y):- portal(X), portal(Y), validTile(X,Y).
-        path(X,Y):- validTile(X,Y),X is Y+1, \\+(0 is mod(X,${dimension})).
-        path(X,Y):- validTile(X,Y),X is Y-1, \\+(0 is mod(Y,${dimension})).
-        path(X,Y):- validTile(X,Y),X is Y-${dimension}.
-        path(X,Y):- validTile(X,Y),X is Y+${dimension}.
+        
+        
+        portalPath(X,Y) :- portal(X), portal(Y), X\\=Y.
 
-        find(S,E,Visited,Result):-path(S,E),reverse(Visited,Temp),append(Temp,[S,E],Result).
-        find(S,E,Visited,R) :-
-            path(S,A),
-            \\+(member(A,Visited)),
-            find(A,E,[S|Visited],R).
+        startSearch(Start,End,Result) :- find(Start,End,[],Result,0).
+
+
+        find(S,E,Visited,Result,_) :- path(S,E), reverse(Visited,Temp), append(Temp,[S,E],Result).
+        find(S,E,Visited,Result,EnteredPortal) :-
+            ( 
+                EnteredPortal is 0 ,
+                portalPath(S,X),
+                \\+(member(X,Visited)),
+                 find(X,E,[S|Visited],Result,1)
+            )
+            ;
+            ( 
+               path(S,X) ,
+               \\+(member(X,Visited)),
+               find(X,E,[S|Visited],Result,EnteredPortal) 
+            ).
   `);
   try {
     const res = await fetch("http://localhost:5000/find", {
@@ -56,7 +61,7 @@ async function useProlog(gridArray, start, end, dimension, accuracy) {
       body: JSON.stringify({
         limit: dimension * dimension * accuracy,
         knowledgeBase,
-        query: `find(${start},${end},[${start}],Result).`
+        query: `startSearch(${start},${end},Result).`
       })
     });
     const data = await res.json();
