@@ -5,6 +5,9 @@ class Graph {
     [key: number]: number[];
   };
   vertexCount: number;
+  edgesList: [number, number][] = [];
+  portals: number[] = [];
+
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
@@ -56,20 +59,19 @@ class Graph {
       return neighobrs;
     };
 
-    let portals = [];
-
     for (let i = 0; i < length * length; i++) {
       if (array[i] === 8) {
-        portals.push(i);
+        this.portals.push(i);
       }
       for (const neighbor of getVertexNeighbors(i)) {
         this.addEdge(i, neighbor);
+        this.edgesList.push([i, neighbor]);
       }
     }
 
-    for (const portal of portals) {
-      for (let i = 0; i < portals.length; i++) {
-        const otherPortal = portals[i];
+    for (const portal of this.portals) {
+      for (let i = 0; i < this.portals.length; i++) {
+        const otherPortal = this.portals[i];
         if (portal !== otherPortal) {
           this.addEdge(portal, otherPortal);
         }
