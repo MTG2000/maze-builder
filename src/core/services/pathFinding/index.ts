@@ -54,7 +54,7 @@ async function useProlog(
         :- use_module(library(lists)).
  
         
-        
+        portal(-1).
         portalPath(X,Y) :- portal(X), portal(Y), X\\=Y.
 
         startSearch(Start,End,Result) :- find(Start,End,[],Result,0).
@@ -79,7 +79,7 @@ async function useProlog(
   // Get The right num of answers & return the shortest
   try {
     const res = await fetch('http://localhost:5000/find', {
-      method: 'POST', // or 'PUT'
+      method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
