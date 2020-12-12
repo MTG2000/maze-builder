@@ -38,28 +38,28 @@ class Graph {
     this.adjacencyList[firstVertex].unshift(secondVertex);
   }
 
-  buildFrom2DArray(array: number[], length: number) {
+  buildFrom2DArray(array: number[], dimension: number) {
     const getVertexNeighbors = (v: number) => {
       let neighobrs: number[] = [];
       if (!array[v]) return neighobrs;
 
-      if (v % length !== 0 && array[v - 1])
+      if (v % dimension !== 0 && array[v - 1])
         // not first column
         neighobrs.push(v - 1);
-      if (v % length !== length - 1 && array[v + 1])
+      if (v % dimension !== dimension - 1 && array[v + 1])
         // not last column
         neighobrs.push(v + 1);
-      if (v >= length && array[v - length])
+      if (v >= dimension && array[v - dimension])
         // not first row
-        neighobrs.push(v - length);
-      if (v + length < length * length && array[v + length])
+        neighobrs.push(v - dimension);
+      if (v + dimension < dimension * dimension && array[v + dimension])
         // not last row
-        neighobrs.push(v + length);
+        neighobrs.push(v + dimension);
 
       return neighobrs;
     };
 
-    for (let i = 0; i < length * length; i++) {
+    for (let i = 0; i < dimension * dimension; i++) {
       if (array[i] === 8) {
         this.portals.push(i);
       }

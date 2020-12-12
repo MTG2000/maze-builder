@@ -2,7 +2,6 @@ import { Tile } from 'src/core/models/Tile';
 import { parseGridTo2DArray } from './parser';
 import Graph from './BFS/graph';
 import { bfs } from './BFS/bfs';
-// import Prolog from './prolog/Prolog';
 
 export async function findPath(
   grid: (Tile | null)[],
