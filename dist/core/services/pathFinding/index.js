@@ -31,7 +31,7 @@ async function useProlog(graph2, start, end, dimension, accuracy) {
         :- use_module(library(lists)).
  
         
-        
+        portal(-1).
         portalPath(X,Y) :- portal(X), portal(Y), X\\=Y.
 
         startSearch(Start,End,Result) :- find(Start,End,[],Result,0).

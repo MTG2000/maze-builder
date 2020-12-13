@@ -56,6 +56,8 @@ const gridSlice = createSlice({
         state.grid[index] = {type: newTile, effect: null};
       } else if (newEffect && isEffectAppliable(tile, newEffect)) {
         if (newEffect === TileEffects.Flag) {
+          if (state.flagsIndecies[0] === index || state.flagsIndecies[1] === index)
+            return;
           const indexToRemoveFlag = state.flagsIndecies[1];
           if (indexToRemoveFlag !== -1)
             state.grid[indexToRemoveFlag] = {
