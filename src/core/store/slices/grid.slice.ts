@@ -88,6 +88,12 @@ const gridSlice = createSlice({
       } else if (newEffect && isEffectAppliable(tile, newEffect)) {
         // If Flag, then remove the oldest of the 2 flags then add new one
         if (newEffect === TileEffects.Flag) {
+          //A Flag Already Exist Here
+          if (
+            state.flagsIndecies[0] === index ||
+            state.flagsIndecies[1] === index
+          )
+            return;
           const indexToRemoveFlag = state.flagsIndecies[1];
           if (indexToRemoveFlag !== -1)
             state.grid[indexToRemoveFlag] = {
