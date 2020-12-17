@@ -5,16 +5,40 @@
     "start_url": "/",
     "icons": [
         {
-            "src": "icons/manifest-icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "maskable any"
+            "src": "icons/android/android-launchericon-512-512.png",
+            "sizes": "512x512"
         },
         {
-            "src": "icons/manifest-icon-512.png",
-            "sizes": "512x512",
-            "type": "image/png",
-            "purpose": "maskable any"
+            "src": "icons/android/android-launchericon-192-192.png",
+            "sizes": "192x192"
+        },
+        {
+            "src": "icons/android/android-launchericon-144-144.png",
+            "sizes": "144x144"
+        },
+        {
+            "src": "icons/android/android-launchericon-96-96.png",
+            "sizes": "96x96"
+        },
+        {
+            "src": "icons/android/android-launchericon-72-72.png",
+            "sizes": "72x72"
+        },
+        {
+            "src": "icons/android/android-launchericon-48-48.png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "icons/chrome/chrome-extensionmanagementpage-48-48.png",
+            "sizes": "48x48"
+        },
+        {
+            "src": "icons/chrome/chrome-favicon-16-16.png",
+            "sizes": "16x16"
+        },
+        {
+            "src": "icons/chrome/chrome-installprocess-128-128.png",
+            "sizes": "128x128"
         }
     ],
     "background_color": "blue",
