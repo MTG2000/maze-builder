@@ -2,7 +2,7 @@
     "name": "Maze Builder",
     "short_name": "Maze Builder",
     "description": "An App that allows you to build a maze then find the shortest path.",
-    "start_url": "/",
+    "start_url": "/maze-builder/",
     "icons": [
         {
             "src": "icons/android/android-launchericon-512-512.png",
