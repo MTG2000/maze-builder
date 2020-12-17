@@ -1,6 +1,7 @@
 {
     "name": "Maze Builder",
     "short_name": "Maze Builder",
+    "description": "An App that allows you to build a maze then find the shortest path.",
     "start_url": "/",
     "icons": [
         {
@@ -16,7 +17,7 @@
             "purpose": "maskable any"
         }
     ],
-    "background-color": "blue",
+    "background_color": "blue",
     "theme_color": "aliceblue",
     "display": "fullscreen"
 }
