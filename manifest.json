@@ -41,7 +41,7 @@
             "sizes": "128x128"
         }
     ],
-    "background_color": "blue",
-    "theme_color": "aliceblue",
-    "display": "fullscreen"
+    "background_color": "#503185",
+    "theme_color": "#503185",
+    "display": "standalone"
 }
