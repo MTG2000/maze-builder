@@ -1,20 +1,3 @@
-// import { registerRoute } from 'workbox-routing';
-// import {
-//   NetworkFirst,
-//   StaleWhileRevalidate,
-//   CacheFirst,
-// } from 'workbox-strategies';
-// import { precacheAndRoute } from 'workbox-precaching';
-
-// // Use with precache injection
-// // precacheAndRoute(self.__WB_MANIFEST);
-
-// console.log('SERVICE WORKER REGISTERED');
-
-// // Used for filtering matches based on status code, header, or both
-// import { CacheableResponsePlugin } from 'workbox-cacheable-response';
-// // Used to limit entries in cache, remove entries after a certain period of time
-// import { ExpirationPlugin } from 'workbox-expiration';
 importScripts(
   'https://storage.googleapis.com/workbox-cdn/releases/6.0.2/workbox-sw.js',
 );
