@@ -8,3 +8,8 @@ ReactDOM.render(/* @__PURE__ */ React.createElement(React.StrictMode, null, /* @
 if (import.meta.hot) {
   import.meta.hot.accept();
 }
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("/service-worker.js");
+  });
+}

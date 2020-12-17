@@ -19,6 +19,7 @@ const Root = styled.header`
     -webkit-text-stroke: #111 1px;
     font-size: 22px;
     margin: 0;
+    text-align: center;
   }
 
   @media screen and (min-width: 668px) {
