@@ -1,8 +1,8 @@
 {
   "homepage": "https://mtg2000.github.io/maze-builder",
   "scripts": {
-    "start": "snowpack dev  --polyfill-node",
-    "build": "snowpack build  --polyfill-node",
+    "start": "snowpack dev",
+    "build": "snowpack build",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
@@ -17,7 +17,12 @@
     "react-redux": "^7.2.2",
     "styled-components": "^5.2.1",
     "tau-prolog": "^0.3.0",
-    "util": "^0.12.3"
+    "util": "^0.12.3",
+    "workbox-cacheable-response": "^6.0.2",
+    "workbox-expiration": "^6.0.2",
+    "workbox-precaching": "^6.0.2",
+    "workbox-routing": "^6.0.2",
+    "workbox-strategies": "^6.0.2"
   },
   "devDependencies": {
     "@snowpack/app-scripts-react": "^1.12.6",
