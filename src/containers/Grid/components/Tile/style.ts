@@ -34,16 +34,16 @@ export const Root = styled.div<{
   }
 
   .path {
-    width: 20px;
-    height: 20px;
+    width: 12px;
+    height: 12px;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     background: #f44336;
-    border: 3px solid #fff;
+    border: 2px solid #fff;
     border-radius: 50%;
-    box-shadow: 0 10px 18px #111;
+    box-shadow: 0 5px 12px #111;
     animation: pathMove 1.1s infinite alternate;
   }
 
@@ -56,6 +56,12 @@ export const Root = styled.div<{
     .effect-img {
       mix-blend-mode: ${(props) =>
         props.color === 'transparent' ? 'unset' : 'luminosity'};
+    }
+
+    .path {
+      width: 20px;
+      height: 20px;
+      box-shadow: 0 10px 18px #111;
     }
   }
 
@@ -72,12 +78,23 @@ export const Root = styled.div<{
 
   @keyframes pathMove {
     from {
-      box-shadow: 0 10px 20px #111;
+      box-shadow: 0 5px 10px #111;
       transform: translate(-50%, -50%);
     }
     to {
-      box-shadow: 0 10px 12px #111;
+      box-shadow: 0 5px 6px #111;
       transform: translate(-50%, -30%);
+    }
+  }
+
+  @media screen and (min-width: 668px) {
+    @keyframes pathMove {
+      from {
+        box-shadow: 0 10px 20px #111;
+      }
+      to {
+        box-shadow: 0 10px 12px #111;
+      }
     }
   }
 
