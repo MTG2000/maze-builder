@@ -10,6 +10,6 @@ if (import.meta.hot) {
 }
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("/maze-builder/service-worker.js");
+    navigator.serviceWorker.register(import.meta.env.MODE === "development" ? "/service-worker.js" : "/maze-builder/service-worker.js");
   });
 }
