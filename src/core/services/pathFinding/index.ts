@@ -15,12 +15,12 @@ export async function findPath(
   const graph = new Graph(dimension, dimension);
   graph.buildFrom2DArray(girdArray, dimension);
 
-  if (import.meta.env.MODE === 'production') {
-    return useBFS(graph, start, end);
-  }
+  // if (import.meta.env.MODE === 'production') {
+  return useBFS(graph, start, end);
+  // }
 
   // This is only to use if you have a prolog backend ( Ignore it )
-  return await useProlog(graph, start, end, dimension, accuracy);
+  // return await useProlog(graph, start, end, dimension, accuracy);
 }
 
 function useBFS(graph: Graph, start: number, end: number) {

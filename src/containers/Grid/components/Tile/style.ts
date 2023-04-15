@@ -1,19 +1,40 @@
 import styled from 'styled-components';
 
 export const Root = styled.div<{
-  color: string;
+  hoverColor: string;
   cursor: string;
 }>`
   width: 100%;
   height: 100%;
   position: relative;
+  background: none;
+  border: none;
+  padding: 0;
 
   :hover {
     cursor: ${(props) => props.cursor};
   }
+
+  :hover,
+  :focus {
+    background-color: ${(props) => props.hoverColor};
+    .tile-img {
+      mix-blend-mode: ${(props) =>
+        props.hoverColor === 'transparent' ? 'unset' : 'luminosity'};
+    }
+    .effect-img {
+      mix-blend-mode: ${(props) =>
+        props.hoverColor === 'transparent' ? 'unset' : 'luminosity'};
+    }
+  }
+
+  :active {
+    filter: brightness(125%);
+  }
+
   .tile-img {
     width: 100%;
-    height: 100%;
+    aspect-ratio: 1/1;
     object-fit: cover;
     animation: appearTile 0.7s 1;
 
@@ -48,21 +69,16 @@ export const Root = styled.div<{
   }
 
   @media screen and (min-width: 668px) {
-    background-color: ${(props) => props.color};
-    .tile-img {
-      mix-blend-mode: ${(props) =>
-        props.color === 'transparent' ? 'unset' : 'luminosity'};
-    }
-    .effect-img {
-      mix-blend-mode: ${(props) =>
-        props.color === 'transparent' ? 'unset' : 'luminosity'};
-    }
-
     .path {
       width: 20px;
       height: 20px;
       box-shadow: 0 10px 18px #111;
     }
+  }
+
+  :focus {
+    isolation: isolate;
+    z-index: 1;
   }
 
   @keyframes appearTile {

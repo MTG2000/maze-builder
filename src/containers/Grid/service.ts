@@ -7,22 +7,22 @@ import {
   toolToTile,
 } from 'src/core/services/ToolBox';
 
-export enum HoverColors {
+export enum HoverStates {
   Remove,
   Add,
   Prevented,
 }
 
-export function getHoverColor(gridTile: Tile | null, selectedTool?: Tools) {
+export function getHoverState(gridTile: Tile | null, selectedTool?: Tools) {
   if (isNullOrUndefined(selectedTool)) return;
 
-  if (selectedTool === Tools.Eraser) return HoverColors.Remove;
+  if (selectedTool === Tools.Eraser) return HoverStates.Remove;
   else if (toolToTile(selectedTool)) {
-    return HoverColors.Add;
+    return HoverStates.Add;
   } else if (
     toolToTileEffect(selectedTool) &&
     isEffectAppliable(gridTile, toolToTileEffect(selectedTool) as TileEffects)
   )
-    return HoverColors.Add;
-  else return HoverColors.Prevented;
+    return HoverStates.Add;
+  else return HoverStates.Prevented;
 }

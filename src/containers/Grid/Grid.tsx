@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from 'src/core/store/rootReducer';
 import { Tile } from 'src/core/models/Tile';
 import TileComponent from './components/Tile/Tile';
-import { HoverColors, getHoverColor } from './service';
+import { HoverStates, getHoverState } from './service';
 import { setTile, setPath } from 'src/core/store/slices/grid.slice';
 import { isNullOrUndefined } from 'util';
 import { Tools } from 'src/core/models/Tools';
@@ -31,8 +31,6 @@ function Grid({}: Props) {
   const ref = useRef<HTMLDivElement | null>(null);
   const selectedToolRef = useRef(selectedTool);
 
-  const gridWidth = Math.min(window.innerWidth, window.innerHeight) * 0.8;
-
   useEffect(() => {
     const handler = () => {
       setTileHoveringOn(-1);
@@ -46,11 +44,11 @@ function Grid({}: Props) {
   }, [selectedTool]);
 
   const gridFalttened = grid.flat();
-  let hoverColor: HoverColors | undefined;
+  let hoverState: HoverStates | undefined;
 
   if (tileHoveringOn !== -1) {
     const gridTile = gridFalttened[tileHoveringOn];
-    hoverColor = getHoverColor(gridTile, selectedTool);
+    hoverState = getHoverState(gridTile, selectedTool);
   }
 
   const handleTileHover = (index: number) => {
@@ -75,21 +73,12 @@ function Grid({}: Props) {
   };
 
   return (
-    <Root
-      width={gridWidth}
-      tileWidth={gridWidth / dimension}
-      ref={ref}
-      showBorders={showBorders}
-    >
-      {canStartSearch && (
-        <StartButton loading={searching} onClick={handleSearchStart} />
-      )}
+    <Root ref={ref} showBorders={showBorders} dimensions={dimension}>
       {gridFalttened.map((tile, index) => (
         <div className="tile" key={index}>
           <TileComponent
-            isHovering={index === tileHoveringOn}
             isPath={path[index]}
-            hoverColor={hoverColor}
+            hoverState={hoverState}
             tile={tile}
             index={index}
             onHover={handleTileHover}
@@ -97,6 +86,9 @@ function Grid({}: Props) {
           />
         </div>
       ))}
+      {canStartSearch && (
+        <StartButton loading={searching} onClick={handleSearchStart} />
+      )}
     </Root>
   );
 }

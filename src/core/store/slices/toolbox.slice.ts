@@ -6,7 +6,7 @@ type toolboxState = {
 };
 
 let initialState: toolboxState = {
-  selectedTool: undefined,
+  selectedTool: Tools.GroundTile,
 };
 
 const toolboxSlice = createSlice({

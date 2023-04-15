@@ -1,35 +1,34 @@
 import React, { useEffect, useRef } from 'react';
 import { Tile as ITile, Tiles, TileEffects } from 'src/core/models/Tile';
-import { HoverColors } from '../../service';
+import { HoverStates, getHoverState } from '../../service';
 import groundImg from 'src/assets/ground-tile.png';
 import waterImg from 'src/assets/water-tile.png';
 import portalImg from 'src/assets/portal.png';
 import flagImg from 'src/assets/flag.png';
-
 import holeImg from 'src/assets/hole.png';
 import { isNullOrUndefined } from 'util';
 import { Root } from './style';
+import { useSelector } from 'react-redux';
+import { RootState } from 'src/core/store/rootReducer';
+import { Tools } from 'src/core/models/Tools';
 
 interface Props {
   index: number;
   tile: ITile | null;
-  isHovering?: boolean;
   isPath?: boolean;
-  hoverColor?: HoverColors;
+  hoverState?: HoverStates;
   onHover: (index: number) => void;
   onClick: (index: number) => void;
 }
 
-function Tile({
-  index,
-  tile,
-  isHovering,
-  isPath,
-  hoverColor,
-  onHover,
-  onClick,
-}: Props) {
-  const ref = useRef<HTMLDivElement | null>(null);
+function Tile({ index, tile, isPath, onHover, onClick }: Props) {
+  const ref = useRef<HTMLButtonElement | null>(null);
+
+  const selectedTool = useSelector<RootState, Tools | undefined>(
+    (state) => state.toolBox.selectedTool,
+  );
+
+  const hoverState = getHoverState(tile, selectedTool);
 
   useEffect(() => {
     const hoverHandler = () => {
@@ -39,23 +38,21 @@ function Tile({
       onClick(index);
     };
     ref.current?.addEventListener('mouseenter', hoverHandler);
-    ref.current?.addEventListener('mousedown', clickHandler);
+    // ref.current?.addEventListener('mousedown', clickHandler);
 
     return () => {
       ref.current?.removeEventListener('mouseenter', hoverHandler);
-      ref.current?.removeEventListener('mousedown', clickHandler);
+      // ref.current?.removeEventListener('mousedown', clickHandler);
     };
   }, []);
 
-  let color = 'transparent';
+  let hoverColor = 'transparent';
   let cursor = 'cell';
-  if (isHovering) {
-    if (hoverColor === HoverColors.Add) color = '#4caf50';
-    else if (hoverColor === HoverColors.Remove) color = '#f6392b';
-    else if (hoverColor === HoverColors.Prevented) {
-      color = '#9e9e9e';
-      cursor = 'not-allowed';
-    }
+  if (hoverState === HoverStates.Add) hoverColor = '#4caf50';
+  else if (hoverState === HoverStates.Remove) hoverColor = '#f6392b';
+  else if (hoverState === HoverStates.Prevented) {
+    hoverColor = '#9e9e9e';
+    cursor = 'not-allowed';
   }
 
   let tileImg;
@@ -71,8 +68,24 @@ function Tile({
     else if (tile?.effect === TileEffects.Flag) effectImg = flagImg;
   }
 
+  let tileTypeLabel = 'Water';
+
+  if (tile?.type === Tiles.Ground) {
+    if (tile?.effect === TileEffects.Portal) tileTypeLabel = 'Portal';
+    else if (tile?.effect === TileEffects.Hole) tileTypeLabel = 'Hole';
+    else if (tile?.effect === TileEffects.Flag) tileTypeLabel = 'Flag';
+    else tileTypeLabel = 'Ground';
+  }
+
   return (
-    <Root color={color} cursor={cursor} ref={ref} data-testid="tile">
+    <Root
+      hoverColor={hoverColor}
+      cursor={cursor}
+      data-testid="tile"
+      onClick={() => {
+        onClick(index);
+      }}
+    >
       {tile && <img className="tile-img" src={tileImg} alt="" />}
       {tile?.effect && <img className="effect-img" src={effectImg} alt="" />}
       {isPath && <span className="path"></span>}

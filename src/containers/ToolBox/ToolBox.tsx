@@ -20,7 +20,7 @@ const tools = [
   { title: 'Water Piece', tool: Tools.SeaTile, img: waterImg },
   { title: 'Portal', tool: Tools.Portal, img: portalImg },
   { title: 'Hole', tool: Tools.Hole, img: holeImg },
-  { title: 'Start/End', tool: Tools.Flag, img: flagImg },
+  { title: 'Start/End Flags', tool: Tools.Flag, img: flagImg },
   { title: 'Eraser', tool: Tools.Eraser, img: eraserImg },
 ];
 

@@ -12,7 +12,9 @@ function Tool({ img, title, onSelect, isSelected }: Props) {
   return (
     <Root
       className={`tooltip ${isSelected ? 'active' : ''}`}
-      onClick={onSelect}
+      onClick={() => {
+        onSelect();
+      }}
     >
       <span className="tooltiptext">{title}</span>
       <img src={img} alt={title} />

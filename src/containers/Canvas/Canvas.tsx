@@ -15,8 +15,8 @@ const Root = styled.div`
 function Canvas({}: Props) {
   return (
     <Root>
-      <Grid />
       <ToolBox />
+      <Grid />
     </Root>
   );
 }

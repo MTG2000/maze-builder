@@ -5,6 +5,9 @@ export const Root = styled.div`
   height: 55px;
   transform: scale(1.2);
   transition: transform 0.3s ease-in-out;
+  background: none;
+  border: none;
+  border-radius: 50%;
   :hover {
     transform: scale(1.5);
   }
@@ -25,6 +28,7 @@ export const Root = styled.div`
 
   &.active {
     transform: scale(1.8);
+    background: #d9a400;
     img {
       -webkit-filter: drop-shadow(0 0 5px #fff);
       filter: drop-shadow(0 0 5px #fff);
@@ -56,7 +60,8 @@ export const Root = styled.div`
   }
 
   /* Show the tooltip text when you mouse over the tooltip container */
-  &.tooltip:hover .tooltiptext {
+  &.tooltip:hover .tooltiptext,
+  &.tooltip:focus .tooltiptext {
     visibility: visible;
   }
 `;
