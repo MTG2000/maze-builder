@@ -62,10 +62,15 @@ function SettingsDialog({ open, handleClose, onChange }: Props) {
       <div className="card">
         <DialogTitle className="title">Settings</DialogTitle>
         <DialogContent className="content">
-          <Typography id="discrete-slider-small-steps" gutterBottom>
+          <Typography
+            component="label"
+            id="dimension-slider-label"
+            gutterBottom
+          >
             Grid Dimensions
           </Typography>
           <Slider
+            aria-labelledby="dimension-slider-label"
             defaultValue={8}
             step={1}
             marks

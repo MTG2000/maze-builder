@@ -37,7 +37,7 @@ function Settings({}: Props) {
         onChange={handleChange}
       />
       <Fab color="secondary" className="fab" onClick={handleClickOpen}>
-        <img src={gearsImg} alt="settings" />
+        <img src={gearsImg} alt="Grid Settings" />
       </Fab>
     </Root>
   );
