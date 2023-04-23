@@ -12,6 +12,7 @@ import portalImg from 'src/assets/portal.png';
 import flagImg from 'src/assets/flag.png';
 import holeImg from 'src/assets/hole.png';
 import eraserImg from 'src/assets/eraser.png';
+import { RovingTabIndexProvider } from 'react-roving-tabindex';
 
 interface Props {}
 
@@ -31,18 +32,20 @@ function ToolBox({}: Props) {
   );
 
   return (
-    <Root>
-      {tools.map((tool, index) => (
-        <div className="tool" key={index}>
-          <Tool
-            title={tool.title}
-            img={tool.img}
-            isSelected={tool.tool === selectedTool}
-            onSelect={() => dispatch(setSelectedTool(tool.tool))}
-          />
-        </div>
-      ))}
-    </Root>
+    <RovingTabIndexProvider options={{ direction: 'both' }}>
+      <Root role="toolbox">
+        {tools.map((tool, index) => (
+          <div className="tool" key={index}>
+            <Tool
+              title={tool.title}
+              img={tool.img}
+              isSelected={tool.tool === selectedTool}
+              onSelect={() => dispatch(setSelectedTool(tool.tool))}
+            />
+          </div>
+        ))}
+      </Root>
+    </RovingTabIndexProvider>
   );
 }
 

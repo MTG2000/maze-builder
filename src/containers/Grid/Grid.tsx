@@ -11,6 +11,7 @@ import { Tools } from 'src/core/models/Tools';
 import { Root } from './style';
 import StartButton from './components/StartButton/StartButton';
 import { findPath } from 'src/core/services/pathFinding';
+import { RovingTabIndexProvider } from 'react-roving-tabindex';
 
 interface Props {}
 
@@ -72,24 +73,53 @@ function Grid({}: Props) {
     setSearching(false);
   };
 
+  console.log(
+    Object.keys(path).map(
+      (index) =>
+        `Row ${Math.floor(parseInt(index) / dimension) + 1}, Column ${
+          (parseInt(index) % dimension) + 1
+        }`,
+    ),
+  );
+
+  const pathLabelled = Object.keys(path).map(
+    (index) =>
+      `Row ${Math.floor(parseInt(index) / dimension) + 1}, Column ${
+        (parseInt(index) % dimension) + 1
+      }`,
+  );
+
   return (
-    <Root ref={ref} showBorders={showBorders} dimensions={dimension}>
-      {gridFalttened.map((tile, index) => (
-        <div className="tile" key={index}>
-          <TileComponent
-            isPath={path[index]}
-            hoverState={hoverState}
-            tile={tile}
-            index={index}
-            onHover={handleTileHover}
-            onClick={handleTileClick}
-          />
-        </div>
-      ))}
-      {canStartSearch && (
-        <StartButton loading={searching} onClick={handleSearchStart} />
-      )}
-    </Root>
+    <RovingTabIndexProvider>
+      <div aria-live="polite" className="sr-only">
+        {pathLabelled.length > 0 &&
+          `Path found. The shortest path is: ${pathLabelled.join(', ')}`}
+      </div>
+      <Root
+        ref={ref}
+        showBorders={showBorders}
+        dimensions={dimension}
+        role="grid"
+      >
+        {gridFalttened.map((tile, index) => (
+          <div className="tile" key={index}>
+            <TileComponent
+              isPath={path[index]}
+              hoverState={hoverState}
+              tile={tile}
+              index={index}
+              onHover={handleTileHover}
+              onClick={handleTileClick}
+              rowIndex={Math.floor(index / dimension)}
+              colIndex={index % dimension}
+            />
+          </div>
+        ))}
+        {canStartSearch && (
+          <StartButton loading={searching} onClick={handleSearchStart} />
+        )}
+      </Root>
+    </RovingTabIndexProvider>
   );
 }
 

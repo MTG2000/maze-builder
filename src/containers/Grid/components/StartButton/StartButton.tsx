@@ -40,7 +40,7 @@ function StartButton({ onClick, loading }: Props) {
       color="secondary"
       onClick={onClick}
     >
-      Start 🔍
+      Find Shortest Path <span aria-hidden>🔍</span>
     </Root>
   );
 }
