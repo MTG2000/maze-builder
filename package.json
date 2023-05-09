@@ -2,7 +2,7 @@
   "homepage": "https://mtg2000.github.io/maze-builder",
   "scripts": {
     "start": "snowpack dev",
-    "build": "snowpack build",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider&snowpack build",
     "test": "web-test-runner \"src/**/*.test.tsx\"",
     "format": "prettier --write \"src/**/*.{js,jsx,ts,tsx}\"",
     "lint": "prettier --check \"src/**/*.{js,jsx,ts,tsx}\"",
