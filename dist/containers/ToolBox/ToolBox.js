@@ -15,7 +15,7 @@ const tools = [
   {title: "Water Piece", tool: Tools2.SeaTile, img: waterImg},
   {title: "Portal", tool: Tools2.Portal, img: portalImg},
   {title: "Hole", tool: Tools2.Hole, img: holeImg},
-  {title: "Start/End", tool: Tools2.Flag, img: flagImg},
+  {title: "Start/End Flags", tool: Tools2.Flag, img: flagImg},
   {title: "Eraser", tool: Tools2.Eraser, img: eraserImg}
 ];
 function ToolBox({}) {

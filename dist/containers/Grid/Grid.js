@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useRef} from "../../../web_modules/react.js";
 import {useSelector, useDispatch} from "../../../web_modules/react-redux.js";
 import TileComponent from "./components/Tile/Tile.js";
-import {getHoverColor} from "./service.js";
+import {getHoverState} from "./service.js";
 import {setTile, setPath} from "../../core/store/slices/grid.slice.js";
 import {isNullOrUndefined} from "../../../web_modules/util.js";
 import {Root} from "./style.js";
@@ -16,7 +16,6 @@ function Grid({}) {
   const selectedTool = useSelector((state) => state.toolBox.selectedTool);
   const ref = useRef(null);
   const selectedToolRef = useRef(selectedTool);
-  const gridWidth = Math.min(window.innerWidth, window.innerHeight) * 0.8;
   useEffect(() => {
     const handler = () => {
       setTileHoveringOn(-1);
@@ -28,10 +27,10 @@ function Grid({}) {
     selectedToolRef.current = selectedTool;
   }, [selectedTool]);
   const gridFalttened = grid2.flat();
-  let hoverColor;
+  let hoverState;
   if (tileHoveringOn !== -1) {
     const gridTile = gridFalttened[tileHoveringOn];
-    hoverColor = getHoverColor(gridTile, selectedTool);
+    hoverState = getHoverState(gridTile, selectedTool);
   }
   const handleTileHover = (index) => {
     setTileHoveringOn(index);
@@ -48,24 +47,22 @@ function Grid({}) {
     setSearching(false);
   };
   return /* @__PURE__ */ React.createElement(Root, {
-    width: gridWidth,
-    tileWidth: gridWidth / dimension,
     ref,
-    showBorders
-  }, canStartSearch && /* @__PURE__ */ React.createElement(StartButton2, {
-    loading: searching,
-    onClick: handleSearchStart
-  }), gridFalttened.map((tile, index) => /* @__PURE__ */ React.createElement("div", {
+    showBorders,
+    dimensions: dimension
+  }, gridFalttened.map((tile, index) => /* @__PURE__ */ React.createElement("div", {
     className: "tile",
     key: index
   }, /* @__PURE__ */ React.createElement(TileComponent, {
-    isHovering: index === tileHoveringOn,
     isPath: path[index],
-    hoverColor,
+    hoverState,
     tile,
     index,
     onHover: handleTileHover,
     onClick: handleTileClick
-  }))));
+  }))), canStartSearch && /* @__PURE__ */ React.createElement(StartButton2, {
+    loading: searching,
+    onClick: handleSearchStart
+  }));
 }
 export default Grid;

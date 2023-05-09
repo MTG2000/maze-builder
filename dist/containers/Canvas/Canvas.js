@@ -9,6 +9,6 @@ const Root = styled.div`
   background: linear-gradient(0deg, #503185, #43164a); ;
 `;
 function Canvas({}) {
-  return /* @__PURE__ */ React.createElement(Root, null, /* @__PURE__ */ React.createElement(Grid2, null), /* @__PURE__ */ React.createElement(ToolBox2, null));
+  return /* @__PURE__ */ React.createElement(Root, null, /* @__PURE__ */ React.createElement(ToolBox2, null), /* @__PURE__ */ React.createElement(Grid2, null));
 }
 export default Canvas;

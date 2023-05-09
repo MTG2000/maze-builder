@@ -1,6 +1,7 @@
 import {createSlice} from "../../../../web_modules/@reduxjs/toolkit.js";
+import {Tools as Tools2} from "../../models/Tools.js";
 let initialState = {
-  selectedTool: void 0
+  selectedTool: Tools2.GroundTile
 };
 const toolboxSlice = createSlice({
   name: "toolbox",

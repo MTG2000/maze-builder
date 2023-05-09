@@ -6,7 +6,7 @@ const Root = styled(Button)`
   background-color: ${(props) => props.theme.secondary};
   color: #000;
   padding: 15px 22px !important;
-  top: 80%;
+  bottom: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 10;
@@ -20,12 +20,8 @@ const Root = styled(Button)`
   }
 
   @media screen and (min-width: 992px) {
-    top: 50%;
-    left: unset;
-    right: 100px;
-    transform: none;
     font-size: 22px !important;
-
+    bottom: 120px;
     padding: 17px 30px !important;
   }
 `;

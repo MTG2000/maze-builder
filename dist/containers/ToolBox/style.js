@@ -7,6 +7,7 @@ export const Root = styled.div`
   background-color: ${(props) => props.theme.secondary};
   padding: 20px 30px;
   border-radius: 0 50px 50px 0;
+  z-index: 10;
 
   .tool {
     margin: 30px 0;
@@ -21,8 +22,8 @@ export const Root = styled.div`
     padding: 9px 12px;
     border-radius: 0;
     display: flex;
+    justify-content: center;
     width: 100vw;
-    overflow: scroll;
 
     .tool {
       margin: 0 20px;
