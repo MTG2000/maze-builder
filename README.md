@@ -16,7 +16,7 @@ The process of finding the shortest path between 2 points is implemented using B
 
 ### Demo
 
-you can play with the demo [Here](mtg2000.github.io/maze-builder)
+you can play with the demo [Here](https://mtg2000.github.io/maze-builder)
 
 ### Running the App Locally
 
