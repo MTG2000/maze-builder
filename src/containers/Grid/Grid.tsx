@@ -11,6 +11,7 @@ import { Tools } from 'src/core/models/Tools';
 import { Root } from './style';
 import StartButton from './components/StartButton/StartButton';
 import { findPath } from 'src/core/services/pathFinding';
+import { RovingTabIndexProvider } from 'react-roving-tabindex';
 
 interface Props {}
 
@@ -73,23 +74,42 @@ function Grid({}: Props) {
   };
 
   return (
-    <Root ref={ref} showBorders={showBorders} dimensions={dimension}>
-      {gridFalttened.map((tile, index) => (
-        <div className="tile" key={index}>
-          <TileComponent
-            isPath={path[index]}
-            hoverState={hoverState}
-            tile={tile}
-            index={index}
-            onHover={handleTileHover}
-            onClick={handleTileClick}
-          />
-        </div>
-      ))}
-      {canStartSearch && (
-        <StartButton loading={searching} onClick={handleSearchStart} />
-      )}
-    </Root>
+    <RovingTabIndexProvider>
+      <div className="sr-only" aria-live="assertive">
+        Shortest path is:
+        {Object.keys(path).map((idx) => (
+          <span key={idx}>
+            (Row: {Math.floor(parseInt(idx) / dimension)}, Column:{' '}
+            {parseInt(idx) % dimension})
+          </span>
+        ))}
+      </div>
+      <Root
+        ref={ref}
+        showBorders={showBorders}
+        dimensions={dimension}
+        role="grid"
+        aria-label=""
+      >
+        {gridFalttened.map((tile, index) => (
+          <div className="tile" key={index}>
+            <TileComponent
+              isPath={path[index]}
+              hoverState={hoverState}
+              tile={tile}
+              index={index}
+              onHover={handleTileHover}
+              onClick={handleTileClick}
+              gridRow={Math.floor(index / dimension)}
+              gridColumn={index % dimension}
+            />
+          </div>
+        ))}
+        {canStartSearch && (
+          <StartButton loading={searching} onClick={handleSearchStart} />
+        )}
+      </Root>
+    </RovingTabIndexProvider>
   );
 }
 

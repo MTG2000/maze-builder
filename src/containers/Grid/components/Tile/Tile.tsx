@@ -11,17 +11,28 @@ import { Root } from './style';
 import { useSelector } from 'react-redux';
 import { RootState } from 'src/core/store/rootReducer';
 import { Tools } from 'src/core/models/Tools';
+import { useFocusEffect, useRovingTabIndex } from 'react-roving-tabindex';
 
 interface Props {
   index: number;
   tile: ITile | null;
   isPath?: boolean;
   hoverState?: HoverStates;
+  gridRow: number;
+  gridColumn: number;
   onHover: (index: number) => void;
   onClick: (index: number) => void;
 }
 
-function Tile({ index, tile, isPath, onHover, onClick }: Props) {
+function Tile({
+  index,
+  tile,
+  isPath,
+  gridRow,
+  gridColumn,
+  onHover,
+  onClick,
+}: Props) {
   const ref = useRef<HTMLButtonElement | null>(null);
 
   const selectedTool = useSelector<RootState, Tools | undefined>(
@@ -45,6 +56,14 @@ function Tile({ index, tile, isPath, onHover, onClick }: Props) {
       // ref.current?.removeEventListener('mousedown', clickHandler);
     };
   }, []);
+
+  const [tabIndex, focused, handleKeyDown, handleClick] = useRovingTabIndex(
+    ref,
+    false,
+    gridRow,
+  );
+
+  useFocusEffect(focused, ref);
 
   let hoverColor = 'transparent';
   let cursor = 'cell';
@@ -77,6 +96,8 @@ function Tile({ index, tile, isPath, onHover, onClick }: Props) {
     else tileTypeLabel = 'Ground';
   }
 
+  const positionLabel = `Row ${gridRow + 1}, Column ${gridColumn + 1}`;
+
   return (
     <Root
       hoverColor={hoverColor}
@@ -84,13 +105,41 @@ function Tile({ index, tile, isPath, onHover, onClick }: Props) {
       data-testid="tile"
       onClick={() => {
         onClick(index);
+        handleClick();
       }}
+      ref={ref}
+      tabIndex={tabIndex}
+      onKeyDown={handleKeyDown}
     >
-      {tile && <img className="tile-img" src={tileImg} alt="" />}
-      {tile?.effect && <img className="effect-img" src={effectImg} alt="" />}
+      <span className="sr-only">{positionLabel}</span>
+      {tile && (
+        <img
+          className="tile-img"
+          src={tileImg}
+          alt={mapTileToLabel[tile.type]}
+        />
+      )}
+      {tile?.effect && (
+        <img
+          className="effect-img"
+          src={effectImg}
+          alt={mapEffectToLabel[tile.effect]}
+        />
+      )}
       {isPath && <span className="path"></span>}
     </Root>
   );
 }
+
+const mapTileToLabel = {
+  [Tiles.Ground]: 'Ground',
+  [Tiles.Sea]: 'Water',
+};
+
+const mapEffectToLabel = {
+  [TileEffects.Portal]: 'Portal',
+  [TileEffects.Hole]: 'Hole',
+  [TileEffects.Flag]: 'Flag',
+};
 
 export default Tile;

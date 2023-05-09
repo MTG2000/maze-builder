@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const Root = styled.div<{
+export const Root = styled.button<{
   hoverColor: string;
   cursor: string;
 }>`
