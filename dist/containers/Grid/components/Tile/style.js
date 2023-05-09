@@ -1,5 +1,5 @@
 import styled from "../../../../../web_modules/styled-components.js";
-export const Root = styled.div`
+export const Root = styled.button`
   width: 100%;
   height: 100%;
   position: relative;

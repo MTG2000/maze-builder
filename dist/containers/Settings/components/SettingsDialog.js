@@ -45,9 +45,11 @@ function SettingsDialog({open, handleClose, onChange}) {
   }, "Settings"), /* @__PURE__ */ React.createElement(DialogContent2, {
     className: "content"
   }, /* @__PURE__ */ React.createElement(Typography, {
-    id: "discrete-slider-small-steps",
+    component: "label",
+    id: "dimension-slider-label",
     gutterBottom: true
   }, "Grid Dimensions"), /* @__PURE__ */ React.createElement(Slider, {
+    "aria-labelledby": "dimension-slider-label",
     defaultValue: 8,
     step: 1,
     marks: true,

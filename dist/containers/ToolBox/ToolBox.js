@@ -4,6 +4,7 @@ import {setSelectedTool} from "../../core/store/slices/toolbox.slice.js";
 import Tool2 from "./components/Tool/Tool.js";
 import {Tools as Tools2} from "../../core/models/Tools.js";
 import {Root} from "./style.js";
+import {RovingTabIndexProvider} from "../../../web_modules/react-roving-tabindex.js";
 import groundImg from "../../assets/tile-ground.png.proxy.js";
 import waterImg from "../../assets/tile-water.png.proxy.js";
 import portalImg from "../../assets/portal.png.proxy.js";
@@ -21,7 +22,11 @@ const tools = [
 function ToolBox({}) {
   const dispatch = useDispatch();
   const selectedTool = useSelector((state) => state.toolBox.selectedTool);
-  return /* @__PURE__ */ React.createElement(Root, null, tools.map((tool, index) => /* @__PURE__ */ React.createElement("div", {
+  return /* @__PURE__ */ React.createElement(RovingTabIndexProvider, {
+    options: {direction: "both"}
+  }, /* @__PURE__ */ React.createElement(Root, {
+    role: "toolbox"
+  }, tools.map((tool, index) => /* @__PURE__ */ React.createElement("div", {
     className: "tool",
     key: index
   }, /* @__PURE__ */ React.createElement(Tool2, {
@@ -29,6 +34,6 @@ function ToolBox({}) {
     img: tool.img,
     isSelected: tool.tool === selectedTool,
     onSelect: () => dispatch(setSelectedTool(tool.tool))
-  }))));
+  })))));
 }
 export default ToolBox;

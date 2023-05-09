@@ -9,7 +9,16 @@ import holeImg from "../../../../assets/hole.png.proxy.js";
 import {isNullOrUndefined} from "../../../../../web_modules/util.js";
 import {Root} from "./style.js";
 import {useSelector} from "../../../../../web_modules/react-redux.js";
-function Tile2({index, tile, isPath, onHover, onClick}) {
+import {useFocusEffect, useRovingTabIndex} from "../../../../../web_modules/react-roving-tabindex.js";
+function Tile2({
+  index,
+  tile,
+  isPath,
+  gridRow,
+  gridColumn,
+  onHover,
+  onClick
+}) {
   const ref = useRef(null);
   const selectedTool = useSelector((state) => state.toolBox.selectedTool);
   const hoverState = getHoverState(tile, selectedTool);
@@ -25,6 +34,8 @@ function Tile2({index, tile, isPath, onHover, onClick}) {
       ref.current?.removeEventListener("mouseenter", hoverHandler);
     };
   }, []);
+  const [tabIndex, focused, handleKeyDown, handleClick] = useRovingTabIndex(ref, false, gridRow);
+  useFocusEffect(focused, ref);
   let hoverColor = "transparent";
   let cursor = "cell";
   if (hoverState === HoverStates.Add)
@@ -62,23 +73,39 @@ function Tile2({index, tile, isPath, onHover, onClick}) {
     else
       tileTypeLabel = "Ground";
   }
+  const positionLabel = `Row ${gridRow + 1}, Column ${gridColumn + 1}`;
   return /* @__PURE__ */ React.createElement(Root, {
     hoverColor,
     cursor,
     "data-testid": "tile",
     onClick: () => {
       onClick(index);
-    }
-  }, tile && /* @__PURE__ */ React.createElement("img", {
+      handleClick();
+    },
+    ref,
+    tabIndex,
+    onKeyDown: handleKeyDown
+  }, /* @__PURE__ */ React.createElement("span", {
+    className: "sr-only"
+  }, positionLabel), tile && /* @__PURE__ */ React.createElement("img", {
     className: "tile-img",
     src: tileImg,
-    alt: ""
+    alt: mapTileToLabel[tile.type]
   }), tile?.effect && /* @__PURE__ */ React.createElement("img", {
     className: "effect-img",
     src: effectImg,
-    alt: ""
+    alt: mapEffectToLabel[tile.effect]
   }), isPath && /* @__PURE__ */ React.createElement("span", {
     className: "path"
   }));
 }
+const mapTileToLabel = {
+  [Tiles.Ground]: "Ground",
+  [Tiles.Sea]: "Water"
+};
+const mapEffectToLabel = {
+  [TileEffects.Portal]: "Portal",
+  [TileEffects.Hole]: "Hole",
+  [TileEffects.Flag]: "Flag"
+};
 export default Tile2;

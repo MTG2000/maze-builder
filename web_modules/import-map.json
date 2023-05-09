@@ -9,6 +9,7 @@
     "react": "./react.js",
     "react-dom": "./react-dom.js",
     "react-redux": "./react-redux.js",
+    "react-roving-tabindex": "./react-roving-tabindex.js",
     "styled-components": "./styled-components.js",
     "util": "./util.js"
   }

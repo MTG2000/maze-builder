@@ -7,6 +7,7 @@ import {isNullOrUndefined} from "../../../web_modules/util.js";
 import {Root} from "./style.js";
 import StartButton2 from "./components/StartButton/StartButton.js";
 import {findPath} from "../../core/services/pathFinding/index.js";
+import {RovingTabIndexProvider} from "../../../web_modules/react-roving-tabindex.js";
 function Grid({}) {
   const [tileHoveringOn, setTileHoveringOn] = useState(-1);
   const [searching, setSearching] = useState(false);
@@ -46,10 +47,17 @@ function Grid({}) {
       dispatch(setPath(result.path));
     setSearching(false);
   };
-  return /* @__PURE__ */ React.createElement(Root, {
+  return /* @__PURE__ */ React.createElement(RovingTabIndexProvider, null, /* @__PURE__ */ React.createElement("div", {
+    className: "sr-only",
+    "aria-live": "assertive"
+  }, "Shortest path is:", Object.keys(path).map((idx) => /* @__PURE__ */ React.createElement("span", {
+    key: idx
+  }, "(Row: ", Math.floor(parseInt(idx) / dimension), ", Column:", " ", parseInt(idx) % dimension, ")"))), /* @__PURE__ */ React.createElement(Root, {
     ref,
     showBorders,
-    dimensions: dimension
+    dimensions: dimension,
+    role: "grid",
+    "aria-label": ""
   }, gridFalttened.map((tile, index) => /* @__PURE__ */ React.createElement("div", {
     className: "tile",
     key: index
@@ -59,10 +67,12 @@ function Grid({}) {
     tile,
     index,
     onHover: handleTileHover,
-    onClick: handleTileClick
+    onClick: handleTileClick,
+    gridRow: Math.floor(index / dimension),
+    gridColumn: index % dimension
   }))), canStartSearch && /* @__PURE__ */ React.createElement(StartButton2, {
     loading: searching,
     onClick: handleSearchStart
-  }));
+  })));
 }
 export default Grid;

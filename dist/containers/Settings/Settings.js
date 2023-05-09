@@ -31,7 +31,7 @@ function Settings({}) {
     onClick: handleClickOpen
   }, /* @__PURE__ */ React.createElement("img", {
     src: gearsImg,
-    alt: "settings"
+    alt: "Grid Settings"
   })));
 }
 export default Settings;

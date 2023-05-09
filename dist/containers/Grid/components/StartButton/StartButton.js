@@ -31,6 +31,8 @@ function StartButton({onClick, loading}) {
     variant: "contained",
     color: "secondary",
     onClick
-  }, "Start \u{1F50D}");
+  }, "Find Shortest Path ", /* @__PURE__ */ React.createElement("span", {
+    "aria-hidden": true
+  }, "\u{1F50D}"));
 }
 export default StartButton;
